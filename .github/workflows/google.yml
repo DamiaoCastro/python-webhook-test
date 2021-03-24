@@ -11,7 +11,7 @@ on:
 name: Build and Deploy to Cloud Run
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
-  SERVICE: gcf
+  SERVICE: webhook-test
   REGION: europe-west4
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
 
     - name: Build and Push Container
       run: |-
-        docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
+        docker build --tag "gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}" .
         docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
         
     - name: Deploy to Cloud Run
