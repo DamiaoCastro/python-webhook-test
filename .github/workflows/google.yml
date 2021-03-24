@@ -11,7 +11,7 @@ on:
 name: Build and Deploy to Cloud Run
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
-  SERVICE: webhook-test
+  SERVICE: gcf
   REGION: europe-west4
 
 jobs:
