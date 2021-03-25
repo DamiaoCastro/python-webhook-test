@@ -41,6 +41,6 @@ jobs:
           --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} \
           --platform "managed" \
           --allow-unauthenticated \
-          --set-env-vars=[KEY1=1] \
+          --set-env-vars=KEY1=1,KEY2=2 \
           --quiet 
           
