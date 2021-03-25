@@ -28,9 +28,9 @@ jobs:
 
     - name: Create pubsub topic if doesn't exist
       run : |-
-        if gcloud pubsub topics list --filter=name:projects/${{ env.PROJECT_ID }}/topics/${{ env.SERVICE }} | grep -q . \
-        then \
-          gcloud pubsub topics create ${{ env.SERVICE }} \
+        if gcloud pubsub topics list --filter="name:projects/${{ env.PROJECT_ID }}/topics/${{ env.SERVICE }}" | grep -q .
+        then
+          gcloud pubsub topics create ${{ env.SERVICE }}
         fi
 
     - name: Authorize Docker push
