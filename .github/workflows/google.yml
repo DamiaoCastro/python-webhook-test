@@ -30,7 +30,9 @@ jobs:
       run : |-
         if gcloud pubsub topics list --filter="name:projects/${{ env.PROJECT_ID }}/topics/${{ env.SERVICE }}" | grep -q .
         then
-          gcloud pubsub topics create ${{ env.SERVICE }}
+          echo "topic already exists";
+        else
+          gcloud pubsub topics create ${{ env.SERVICE }};
         fi
 
     - name: Authorize Docker push
