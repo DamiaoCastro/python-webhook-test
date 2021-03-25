@@ -1,6 +1,5 @@
 # https://github.com/google-github-actions/setup-gcloud/blob/master/example-workflows/cloud-run/cloud-run.yml
-
-
+# https://cloud.google.com/sdk/gcloud/reference/run/deploy
 
 on:
   push:
@@ -42,5 +41,6 @@ jobs:
           --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} \
           --platform "managed" \
           --allow-unauthenticated \
+          --set-env-vars=[KEY1=1] \
           --quiet 
           
