@@ -1,15 +1,24 @@
 import os
-from flask import Flask
+from flask import Flask, request
+from google.cloud import pubsub_v1
 app = Flask(__name__)
+
+project_id = "damiao-project-1" #os.environ.get("project_id")
+topic_id = "webhook-test" #os.environ.get("topic_id")
+publisher = pubsub_v1.PublisherClient()
+topic_path = publisher.topic_path(project_id, topic_id)
 
 @app.route('/', methods=['POST'])
 def index():
+    
+    #  request_secret = request.headers['Secret']
+    #     if request_secret != os.environ['SECRET']:
+    #         return ('Unauthorized', 401)   
+         
+    payload = request.get_data(cache=False, as_text=False, parse_form_data=False)
 
-#  request_secret = request.headers['Secret']
-#     if request_secret != os.environ['SECRET']:
-#         return ('Unauthorized', 401)    
-
-    # data = request.get_json()
+    future = publisher.publish(topic_path, payload, p1='p2')
+    future.result()
 
     return ('OK', 200)
 
