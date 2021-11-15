@@ -44,8 +44,7 @@ jobs:
 
     - name: Build and Push Container
       run: |-
-        docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
-        docker tag gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:latest
+        docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:latest .
         docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:latest
         
     # - name: Deploy to Cloud Run
