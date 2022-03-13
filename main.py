@@ -2,6 +2,7 @@ import re
 from google.cloud import pubsub_v1
 from flask import Flask, request
 import os
+
 PUBSUB_TOPIC_VAR_NAME = "PUBSUB_TOPIC"
 topic_path = os.environ.get(PUBSUB_TOPIC_VAR_NAME)
 
@@ -13,6 +14,9 @@ match = re.search("^projects\/[^/]+\/topics\/[^/]+$", topic_path)
 if match is None:
     raise Exception(
         'Environment variable "{PUBSUB_TOPIC_VAR_NAME}" does NOT have the expected format')
+
+DEFAULT_RESPONSE_VAR_NAME = "DEFAULT_RESPONSE"
+defaultResponse = os.environ.get(DEFAULT_RESPONSE_VAR_NAME, "OK")
 
 app = Flask(__name__)
 HTTP_METHODS = ['GET', 'HEAD', 'POST', 'PUT',
@@ -42,7 +46,7 @@ def catch_all(path):
         except:
             return ('ERROR', 500)
 
-    return ('OK', 200)
+    return (defaultResponse, 200)
 
 
 if __name__ == "__main__":
